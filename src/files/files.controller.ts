@@ -5,7 +5,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { fileFilter, fileNamer } from './helpers';
 import { diskStorage } from 'multer';
 import { ConfigService } from '@nestjs/config';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Product } from 'src/products/entities';
 
+@ApiTags('Files - Get and upload')
 @Controller('files')
 export class FilesController {
   constructor(
@@ -25,6 +28,9 @@ export class FilesController {
   }
 
   @Post('product')
+    @ApiResponse({ status: 201, description: 'product was created', type: Product})
+    @ApiResponse({ status: 400, description: 'Bad request'})
+    @ApiResponse({ status: 403, description: 'Forbidden. File related.'})
   @UseInterceptors(FileInterceptor('file', {
     fileFilter:  fileFilter,
     // limits:{ fileSize: 1000}

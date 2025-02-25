@@ -6,7 +6,10 @@ import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Auth, GetUser } from '../auth/decorators';
 import { ValidRoles } from 'src/auth/interfaces';
 import { User } from 'src/auth/entities/user.entity';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Product } from './entities';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
